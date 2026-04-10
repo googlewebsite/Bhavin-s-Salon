@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhavin's Salon - Premium Salon Experience in Surat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gold-gradient: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            --dark-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --neon-pink: #ff006e;
+            --neon-purple: #8338ec;
+            --neon-blue: #3a86ff;
+            --text-primary: #ffffff;
+            --text-secondary: #b8b8b8;
+            --shadow-soft: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            --shadow-glow: 0 0 20px rgba(255, 0, 110, 0.5);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .slider-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(102, 126, 234, 0.3) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .hero-content {
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .sparkle {
+            display: inline-block;
+            animation: sparkle 2s infinite;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .cta-button {
+            background: var(--gold-gradient);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-glow);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.7);
+        }
+
+        .slider-nav {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 3;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: var(--gold-gradient);
+            transform: scale(1.3);
+        }
+
+        /* WhatsApp Style Menu */
+        .menu-section {
+            padding: 80px 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .chat-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .chat-header {
+            background: var(--primary-gradient);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            background: var(--gold-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .chat-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+
+        .chat-info p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .chat-messages {
+            padding: 20px;
+            min-height: 150px;
+        }
+
+        .message {
+            background: var(--glass-bg);
+            backdrop-filter: blur(5px);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            max-width: 80%;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .message.received {
+            background: rgba(255, 255, 255, 0.1);
+            margin-right: auto;
+        }
+
+        .menu-options {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .option-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .option-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .option-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 1.5rem;
+        }
+
+        .option-card h4 {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Services Section */
+        .services-section {
+            padding: 80px 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--secondary-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .price-tag {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        .price-tag span {
+            color: #FFD700;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        /* Booking Section */
+        .booking-section {
+            padding: 80px 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .booking-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .form-group input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--gold-gradient);
+            color: white;
+            border: none;
+            padding: 18px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-soft);
+        }
+
+
+
+        /* Contact Section */
+        .contact-section {
+            padding: 80px 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            transform: translateX(10px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .info-item i {
+            font-size: 1.5rem;
+            color: #FFD700;
+            width: 40px;
+        }
+
+        .info-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .info-item p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .map-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .social-gallery h3 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: #FFD700;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            height: 150px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Price List Section */
+        .price-list-section {
+            padding: 80px 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .price-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .price-category {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        .price-category h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #FFD700;
+            text-align: center;
+        }
+
+        .price-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .price-item:last-child {
+            border-bottom: none;
+        }
+
+        .price-item span:first-child {
+            color: var(--text-secondary);
+        }
+
+        .price-item span:last-child {
+            color: #FFD700;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            padding: 80px 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .review-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .stars {
+            color: #FFD700;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .review-text {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .reviewer {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .reviewer img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .reviewer h4 {
+            font-size: 1rem;
+            margin-bottom: 5px;
+        }
+
+        .reviewer p {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        /* Transformation Gallery */
+        .transformation-section {
+            padding: 80px 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .transformation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .transformation-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .transformation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+        }
+
+        .before,
+        .after {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .before img,
+        .after img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .before span,
+        .after span {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        /* Chatbot */
+        .chatbot-container {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            display: none;
+            flex-direction: column;
+            box-shadow: var(--shadow-soft);
+            z-index: 1000;
+        }
+
+        .chatbot-container.active {
+            display: flex;
+        }
+
+        .chatbot-header {
+            background: var(--primary-gradient);
+            padding: 15px;
+            border-radius: 20px 20px 0 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .bot-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--gold-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .bot-info h4 {
+            font-size: 1rem;
+            margin-bottom: 3px;
+        }
+
+        .bot-info p {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .close-bot {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .bot-message {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 15px;
+            max-width: 80%;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .user-message {
+            background: var(--primary-gradient);
+            padding: 12px;
+            border-radius: 15px;
+            max-width: 80%;
+            align-self: flex-end;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .chatbot-input {
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            color: white;
+        }
+
+        .chatbot-input button {
+            background: var(--primary-gradient);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chatbot-input button:hover {
+            transform: scale(1.1);
+        }
+
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-gradient);
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3,
+        .footer-section h4 {
+            margin-bottom: 20px;
+            color: #FFD700;
+        }
+
+        .footer-section p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary-gradient);
+            transform: translateY(-3px);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: #FFD700;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes sparkle {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chatbot-container {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+            }
+
+            .menu-options {
+                grid-template-columns: 1fr;
+            }
+
+            .services-grid,
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #FFD700;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gradient);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-gradient);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hero Section with Image Slider -->
+    <section class="hero" id="hero">
+        <div class="slider-container">
+            <div class="slide active">
+                <img src="https://static.vecteezy.com/system/resources/previews/014/286/524/non_2x/a-teenager-in-a-beauty-salon-gets-a-haircut-a-hairdresser-cuts-a-teenage-boy-s-hair-free-photo.jpg"
+                    alt="Salon Service 1">
+            </div>
+            <div class="slide">
+                <img src="https://tse3.mm.bing.net/th/id/OIP.20gfQTXJFjbKJNnGZtmT6gHaD_?pid=Api&P=0&h=180"
+                    alt="Salon Service 2">
+            </div>
+            <div class="slide">
+                <img src="https://img.freepik.com/premium-photo/longhaired-hairdresser-working-with-male-client-beauty-slaon_259150-61563.jpg?w=996"
+                    alt="Salon Service 3">
+            </div>
+        </div>
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1 class="hero-title">Style That Defines You <span class="sparkle"> sparkle</span></h1>
+                <p class="hero-subtitle">Premium Salon Experience in Surat</p>
+                <button class="cta-button" onclick="scrollToSection('menu')">
+                    <i class="fas fa-calendar-check"></i> Book Appointment
+                </button>
+            </div>
+        </div>
+        <div class="slider-nav">
+            <span class="nav-dot active" onclick="currentSlide(1)"></span>
+            <span class="nav-dot" onclick="currentSlide(2)"></span>
+            <span class="nav-dot" onclick="currentSlide(3)"></span>
+        </div>
+    </section>
+
+
+
+    <!-- Services Section -->
+
+
+    <!-- Booking Section -->
+    <section class="booking-section" id="booking">
+        <div class="container">
+            <h2 class="section-title">Book Your Appointment</h2>
+            <div class="booking-form">
+                <form id="appointmentForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="service">Select Service</label>
+                        <select id="service" name="service" required>
+                            <option value="">Choose a service...</option>
+                            <option value="haircut">Haircut & Styling</option>
+                            <option value="beard">Beard Styling</option>
+                            <option value="facial">Facial Treatment</option>
+                            <option value="hair-spa">Hair Spa</option>
+                            <option value="keratin">Keratin Treatment</option>
+                            <option value="coloring">Hair Coloring</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Preferred Date</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Preferred Time</label>
+                        <select id="time" name="time" required>
+                            <option value="">Select time...</option>
+                            <option value="09:00">9:00 AM</option>
+                            <option value="10:00">10:00 AM</option>
+                            <option value="11:00">11:00 AM</option>
+                            <option value="12:00">12:00 PM</option>
+                            <option value="15:00">3:00 PM</option>
+                            <option value="16:00">4:00 PM</option>
+                            <option value="17:00">5:00 PM</option>
+                            <option value="18:00">6:00 PM</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-check"></i> Confirm Booking
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Visit Us</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Location</h4>
+                            <p>Athwalines, Surat, Gujarat</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+91 98765 43210</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fab fa-whatsapp"></i>
+                        <div>
+                            <h4>WhatsApp</h4>
+                            <p>+91 98765 43210</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Hours</h4>
+                            <p>Mon-Sat: 9AM - 8PM<br>Sun: 10AM - 6PM</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="map-container">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3742.123456789!2d72.8123456789!3d21.1701234567!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjHCsDEwJzEyLjQiTiA3MsKwNDgnNDQuNCJF!5e0!3m2!1sen!2sin!4v1234567890"
+                        width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+        </div>
+        </div>
+    </section>
+
+
+    </div>
+    </div>
+    </div>
+    </div>
+    </section>
+
+    <!-- Transformation Gallery -->
+    <section class="transformation-section" id="transformation">
+        <div class="container">
+
+            <div class="transformation-grid">
+
+
+            </div>
+        </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- AI Chatbot -->
+    <div class="chatbot-container" id="chatbot">
+        <div class="chatbot-header">
+            <div class="bot-avatar">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="bot-info">
+                <h4>AI Assistant</h4>
+                <p>Always here to help</p>
+            </div>
+            <button class="close-bot" onclick="toggleChatbot()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="bot-message">
+                <p>Hello! I'm your AI assistant. How can I help you book an appointment or learn about our services?</p>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="botInput" placeholder="Type your message...">
+            <button onclick="sendBotMessage()">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Chatbot Toggle Button -->
+    <button class="chatbot-toggle" onclick="toggleChatbot()">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Bhavin's Salon</h3>
+                    <p>Your premium salon experience in Athwalines, Surat</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#booking">Book Appointment</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+                    <p><i class="fab fa-whatsapp"></i> +91 98765 43210</p>
+                    <p><i class="fas fa-envelope"></i> info@bavinssalon.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Bhavin's Salon. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Image Slider
+        let currentSlideIndex = 1;
+
+        function currentSlide(n) {
+            showSlide(currentSlideIndex = n);
+        }
+
+        function showSlide(n) {
+            const slides = document.getElementsByClassName('slide');
+            const dots = document.getElementsByClassName('nav-dot');
+
+            if (n > slides.length) currentSlideIndex = 1;
+            if (n < 1) currentSlideIndex = slides.length;
+
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active');
+            }
+
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].classList.remove('active');
+            }
+
+            slides[currentSlideIndex - 1].classList.add('active');
+            dots[currentSlideIndex - 1].classList.add('active');
+        }
+
+        // Auto-advance slider
+        setInterval(() => {
+            currentSlideIndex++;
+            showSlide(currentSlideIndex);
+        }, 5000);
+
+        // Smooth Scroll
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Show Section based on menu selection
+        function showSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+
+                // Add animation to the section
+                section.classList.add('fade-in');
+                setTimeout(() => {
+                    section.classList.add('visible');
+                }, 100);
+            }
+        }
+
+        // Form Submission
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('appointmentForm');
+            if (form) {
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    // Get form data
+                    const formData = new FormData(form);
+                    const data = Object.fromEntries(formData);
+
+                    // Show success message
+                    showNotification('Appointment booked successfully! We will contact you soon.', 'success');
+
+                    // Reset form
+                    form.reset();
+
+                    // Add message to chat
+                    addChatMessage('user', `I want to book ${data.service} on ${data.date} at ${data.time}`);
+                    addChatMessage('bot', 'Great! Your appointment has been booked. Our team will confirm shortly.');
+                });
+            }
+        });
+
+        // Notification System
+        function showNotification(message, type = 'info') {
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+        <div class="notification-content">
+            <i class="fas fa-${type === 'success' ? 'check-circle' : 'info-circle'}"></i>
+            <p>${message}</p>
+        </div>
+        <button class="notification-close" onclick="this.parentElement.remove()">
+            <i class="fas fa-times"></i>
+        </button>
+    `;
+
+            // Add styles
+            notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: ${type === 'success' ? 'linear-gradient(135deg, #00b09b, #96c93d)' : 'var(--primary-gradient)'};
+        color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        z-index: 10000;
+        animation: slideIn 0.3s ease;
+        max-width: 300px;
+    `;
+
+            document.body.appendChild(notification);
+
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 5000);
+        }
+
+        // Chatbot functionality
+        let chatbotOpen = false;
+
+        function toggleChatbot() {
+            const chatbot = document.getElementById('chatbot');
+            chatbotOpen = !chatbotOpen;
+
+            if (chatbotOpen) {
+                chatbot.classList.add('active');
+                document.querySelector('.chatbot-toggle').style.display = 'none';
+            } else {
+                chatbot.classList.remove('active');
+                document.querySelector('.chatbot-toggle').style.display = 'block';
+            }
+        }
+
+        function sendBotMessage() {
+            const input = document.getElementById('botInput');
+            const message = input.value.trim();
+
+            if (message) {
+                // Add user message
+                addChatMessage('user', message);
+
+                // Clear input
+                input.value = '';
+
+                // Show typing indicator
+                showTypingIndicator();
+
+                // Simulate bot response
+                setTimeout(() => {
+                    removeTypingIndicator();
+                    const botResponse = generateBotResponse(message);
+                    addChatMessage('bot', botResponse);
+                }, 1500);
+            }
+        }
+
+        function addChatMessage(sender, message) {
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `${sender}-message`;
+            messageDiv.innerHTML = `<p>${message}</p>`;
+
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const messagesContainer = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.innerHTML = `
+        <div class="typing-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    `;
+
+            messagesContainer.appendChild(typingDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const typingIndicator = document.querySelector('.typing-indicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        function generateBotResponse(message) {
+            const lowerMessage = message.toLowerCase();
+
+            if (lowerMessage.includes('appointment') || lowerMessage.includes('book')) {
+                return 'You can book an appointment by filling out the form in the booking section. What service would you like to book?';
+            } else if (lowerMessage.includes('price') || lowerMessage.includes('cost')) {
+                return 'Our prices start from 199 for basic services. You can view our complete price list in the price section. Which service are you interested in?';
+            } else if (lowerMessage.includes('service') || lowerMessage.includes('treatment')) {
+                return 'We offer haircut, beard styling, facial treatments, hair spa, keratin treatment, and hair coloring. What would you like to know more about?';
+            } else if (lowerMessage.includes('offer') || lowerMessage.includes('discount')) {
+                return 'We currently have a 20% discount on first visits and combo packages. Would you like to know more about our offers?';
+            } else if (lowerMessage.includes('location') || lowerMessage.includes('address')) {
+                return 'We are located in Athwalines, Surat. You can find us easily on Google Maps. Would you like directions?';
+            } else if (lowerMessage.includes('time') || lowerMessage.includes('hours')) {
+                return 'We are open Monday to Saturday from 9AM to 8PM, and Sunday from 10AM to 6PM. When would you like to visit?';
+            } else if (lowerMessage.includes('hello') || lowerMessage.includes('hi')) {
+                return 'Hello! Welcome to Bhavin\'s Salon. How can I help you today?';
+            } else {
+                return 'I can help you with booking appointments, information about our services, prices, offers, and location. What would you like to know?';
+            }
+        }
+
+        // Add typing indicator styles
+        const style = document.createElement('style');
+        style.textContent = `
+    .typing-indicator {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 12px;
+        border-radius: 15px;
+        max-width: 80%;
+        animation: fadeIn 0.5s ease;
+    }
+    
+    .typing-dots {
+        display: flex;
+        gap: 4px;
+    }
+    
+    .typing-dots span {
+        width: 8px;
+        height: 8px;
+        background: #FFD700;
+        border-radius: 50%;
+        animation: typing 1.4s infinite;
+    }
+    
+    .typing-dots span:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+    
+    .typing-dots span:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+    
+    @keyframes typing {
+        0%, 60%, 100% {
+            transform: translateY(0);
+        }
+        30% {
+            transform: translateY(-10px);
+        }
+    }
+    
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    .notification {
+        animation: slideIn 0.3s ease;
+    }
+    
+    .notification-content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .notification-close {
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+`;
+        document.head.appendChild(style);
+
+        // Enter key for chatbot
+        document.addEventListener('DOMContentLoaded', function () {
+            const botInput = document.getElementById('botInput');
+            if (botInput) {
+                botInput.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        sendBotMessage();
+                    }
+                });
+            }
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.addEventListener('DOMContentLoaded', function () {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // Add fade-in class to sections
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.classList.add('fade-in');
+                observer.observe(section);
+            });
+        });
+
+        // Floating animation for elements
+        function addFloatingAnimation() {
+            const elements = document.querySelectorAll('.service-card, .offer-card, .product-card');
+            elements.forEach((element, index) => {
+                element.style.animationDelay = `${index * 0.1}s`;
+                element.style.animation = 'float 3s ease-in-out infinite';
+            });
+        }
+
+        // Initialize floating animation
+        document.addEventListener('DOMContentLoaded', addFloatingAnimation);
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function () {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const heroContent = document.querySelector('.hero-content');
+
+            if (hero && heroContent) {
+                heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
+                hero.style.opacity = 1 - scrolled / 800;
+            }
+        });
+
+        // Gallery lightbox
+        function createLightbox() {
+            const lightbox = document.createElement('div');
+            lightbox.id = 'lightbox';
+            lightbox.innerHTML = `
+        <div class="lightbox-content">
+            <img src="" alt="Gallery Image">
+            <button class="lightbox-close">&times;</button>
+        </div>
+    `;
+
+            lightbox.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+    `;
+
+            const lightboxContent = lightbox.querySelector('.lightbox-content');
+            lightboxContent.style.cssText = `
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+    `;
+
+            const lightboxImg = lightbox.querySelector('img');
+            lightboxImg.style.cssText = `
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    `;
+
+            const closeBtn = lightbox.querySelector('.lightbox-close');
+            closeBtn.style.cssText = `
+        position: absolute;
+        top: -40px;
+        right: 0;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+    `;
+
+            closeBtn.addEventListener('click', () => {
+                lightbox.style.display = 'none';
+            });
+
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.style.display = 'none';
+                }
+            });
+
+            document.body.appendChild(lightbox);
+
+            // Add click handlers to gallery images
+            const galleryImages = document.querySelectorAll('.gallery-item img, .product-image img');
+            galleryImages.forEach(img => {
+                img.style.cursor = 'pointer';
+                img.addEventListener('click', () => {
+                    lightboxImg.src = img.src;
+                    lightbox.style.display = 'flex';
+                });
+            });
+        }
+
+        // Initialize lightbox
+        document.addEventListener('DOMContentLoaded', createLightbox);
+
+        // Offer claim handlers
+        document.addEventListener('DOMContentLoaded', function () {
+            const claimButtons = document.querySelectorAll('.claim-btn');
+            claimButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const offerCard = this.closest('.offer-card');
+                    const offerTitle = offerCard.querySelector('h3').textContent;
+                    showNotification(`Great! You've claimed: ${offerTitle}. Show this at the salon to avail the offer.`, 'success');
+                });
+            });
+        });
+
+        // Buy button handlers
+        document.addEventListener('DOMContentLoaded', function () {
+            const buyButtons = document.querySelectorAll('.buy-btn');
+            buyButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const productCard = this.closest('.product-card');
+                    const productName = productCard.querySelector('h3').textContent;
+                    showNotification(`${productName} added to cart! Checkout will be available soon.`, 'success');
+                });
+            });
+        });
+
+        // Add sparkle effect to gold elements
+        function addSparkleEffect() {
+            const goldElements = document.querySelectorAll('.hero-title, .price-tag span, .product-price');
+            goldElements.forEach(element => {
+                element.style.position = 'relative';
+
+                setInterval(() => {
+                    const sparkle = document.createElement('span');
+                    sparkle.innerHTML = ' sparkle';
+                    sparkle.style.cssText = `
+                position: absolute;
+                color: #FFD700;
+                font-size: 0.8em;
+                animation: sparkleFloat 1s ease-out forwards;
+                pointer-events: none;
+            `;
+
+                    const rect = element.getBoundingClientRect();
+                    sparkle.style.left = Math.random() * rect.width + 'px';
+                    sparkle.style.top = Math.random() * rect.height + 'px';
+
+                    element.appendChild(sparkle);
+
+                    setTimeout(() => sparkle.remove(), 1000);
+                }, 3000);
+            });
+        }
+
+        // Add sparkle float animation
+        const sparkleStyle = document.createElement('style');
+        sparkleStyle.textContent = `
+    @keyframes sparkleFloat {
+        0% {
+            transform: translateY(0) scale(0);
+            opacity: 1;
+        }
+        50% {
+            transform: translateY(-20px) scale(1);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-40px) scale(0);
+            opacity: 0;
+        }
+    }
+`;
+        document.head.appendChild(sparkleStyle);
+
+        // Initialize sparkle effect
+        document.addEventListener('DOMContentLoaded', addSparkleEffect);
+
+        // Mobile menu toggle (if needed)
+        function toggleMobileMenu() {
+            const menu = document.querySelector('.menu-section');
+            if (menu) {
+                menu.classList.toggle('mobile-active');
+            }
+        }
+
+        // Performance optimization - lazy loading images
+        function lazyLoadImages() {
+            const images = document.querySelectorAll('img[data-src]');
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            images.forEach(img => imageObserver.observe(img));
+        }
+
+        // Initialize lazy loading
+        document.addEventListener('DOMContentLoaded', lazyLoadImages);
+
+        // Add smooth reveal animation for sections
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+
+            reveals.forEach(element => {
+                const windowHeight = window.innerHeight;
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+
+                if (elementTop < windowHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+
+        // Initialize reveal animations
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.classList.add('reveal');
+            });
+            revealOnScroll();
+        });
+
+    </script>
+</body>
+
+</html>
